@@ -1,0 +1,113 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fbf8fb;
+  color: #333;
+}
+
+header {
+  background-color: #f8b8d2;
+  padding: 20px;
+  text-align: center;
+  color: rgb(12, 12, 12);
+  font-size: 1.5rem;
+}
+
+.editor-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.form-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.form-controls label {
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+input[type="color"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-group button {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #c1609c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.preview-card {
+  width: 350px;
+  height: 500px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.text-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.draggable-text {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: grab;
+  user-select: none;
+}
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #d884a0;
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #b33e69;
+}

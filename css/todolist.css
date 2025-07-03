@@ -1,0 +1,233 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fffafc;
+  color: #333;
+  padding-bottom: 50px;
+  line-height: 1.6;
+}
+
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8b8d2;
+  padding: 12px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  flex-wrap: wrap;
+}
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+}
+.logo {
+  width: 90px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.navbar h1 {
+  font-size: 1.8rem;
+  color: #cc3366;
+  margin-left: 10px;
+}
+.nav-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+}
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  color: #333;
+}
+
+.nav-links a.active {
+  color: #2d2a2d;
+  font-weight: bold;
+}
+
+
+.add-template-form {
+  max-width: 600px;
+  margin: 30px auto 20px;
+  background: #ffeaf0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+}
+.add-template-form h2 {
+  margin-bottom: 15px;
+  color: #cc3366;
+  font-size: 1.5rem;
+}
+.add-template-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.add-template-form button {
+  padding: 10px 18px;
+  background: #cc3366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.add-template-form button:hover {
+  background: #b32a59;
+}
+
+.todo-list-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.todo-list-container h2 {
+  color: #cc3366;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+}
+.template-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+.todo-card {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 5px solid #cc3366;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.todo-card img.template-img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.todo-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+.time-stamp {
+  font-size: 0.85rem;
+  color: #888;
+}
+.btns {
+  margin-top: 5px;
+}
+.delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+.delete-btn:hover {
+  background-color: #cc0000;
+}
+
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .add-template-form,
+  .todo-list-container {
+    padding: 0 10px;
+  }
+
+  .add-template-form button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+.template-controls {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 15px 20px;
+  background-color: #ffeaf0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.template-controls h3 {
+  color: #cc3366;
+  font-size: 1.2rem;
+  margin-right: auto;
+}
+
+.template-controls select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.template-controls button {
+  padding: 8px 14px;
+  background-color: #ff4d6d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.template-controls button:hover {
+  background-color: #cc204d;
+}
+
+@media (max-width: 600px) {
+  .template-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.template-img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}

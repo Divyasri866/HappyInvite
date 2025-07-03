@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - HappyInvite</title>
+  <link rel="stylesheet" href="css/login-register.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <img src="assets/images/logo.jpg" class="logo" />
+      <h2>Login to HappyInvite</h2>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email address" class="form-control" required /><br />
+        <input type="password" id="password" placeholder="Password" class="form-control" required /><br />
+        <button type="submit" class="btn btn-success w-100">Login</button>
+        <p class="message" id="loginStatus"></p>
+        <p>Don't have an account? <a href="register.html">Sign up</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

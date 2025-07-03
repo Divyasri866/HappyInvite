@@ -1,0 +1,69 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fefafc;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background: #f9bad3;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 90px;
+}
+
+.back-btn {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.feedback-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #f7f2f2;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+form input, form select, form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+form button {
+  background: #e06c9c;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #cf5d8e;
+}
+
+.response-msg {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: green;
+}

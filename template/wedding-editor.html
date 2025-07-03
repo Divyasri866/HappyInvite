@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wedding Card Editor - HappyInvite</title>
+  <link rel="stylesheet" href="../css/wedding-editor.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>💍Customize Your Wedding Invite or Wishing Card💍</h1>
+  </header>
+
+  <main class="editor-container">
+    <div class="form-controls">
+      <label>Couple Names:
+        <input type="text" id="nameInput" placeholder="e.g., Rohan & Aisha" />
+      </label>
+      <label>Wedding Date:
+        <input type="text" id="dateInput" placeholder="e.g., July 5, 2025" />
+      </label>
+      <label>Custom Message:
+        <textarea id="messageInput" placeholder="Join us on our special day! 💐"></textarea>
+      </label>
+      <label>Select Text Color:
+        <input type="color" id="textColorPicker" value="#ff69b4" />
+      </label>
+      <label>Select Template:
+        <select id="templateSelect">
+          <option value="1">👑 Royal Theme</option>
+          <option value="2">🌿 Minimalist</option>
+          <option value="3">🎊 Traditional</option>
+        </select>
+      </label>
+      <div class="btn-group">
+        <button id="downloadBtn">📥 Download</button>
+        <button onclick="window.print()">🖨️ Print</button>
+      </div>
+    </div>
+
+    <div id="cardPreview" class="preview-card">
+      <img id="bgImage" src="../assets/images/birthday1.jpg" class="bg-img" />
+      <div class="text-layer">
+        <h2 id="previewName" class="draggable-text" style="top: 60px; left: 40px;">Rohan & Aisha</h2>
+        <p id="previewDate" class="draggable-text" style="top: 130px; left: 40px;">July 5, 2025</p>
+        <p id="previewMessage" class="draggable-text" style="top: 200px; left: 40px;">Join us on our special day! 💐</p>
+      </div>
+    </div>
+
+    <button onclick="goBack()" class="back-btn">⬅️ Back</button>
+
+  </main>
+
+  <script src="../js/wedding-editor.js"></script>
+
+  <script>
+  function goBack() {
+    window.location.href = "../explore.html"; // update path if needed
+  }
+</script>
+
+</body>
+</html>

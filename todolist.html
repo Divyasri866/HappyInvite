@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do Templates - HappyInvite</title>
+  <link rel="stylesheet" href="css/todolist.css" />
+</head>
+<body>
+
+ <header class="navbar">
+  <div class="navbar-left">
+    <img src="assets/images/logo(1).jpg" alt="HappyInvite Logo" class="logo" />
+    <h1>My To-Do Templates</h1>
+  </div>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="explore.html">Explore</a>
+    <a href="todolist.html" class="active">To-Do List</a>
+  </nav>
+</header>
+
+
+  <main>
+
+ 
+    <section class="add-template-form">
+      <h2>Add New Template</h2>
+      <input type="text" id="templateTitle" placeholder="Template Title" />
+      <input type="text" id="templateCategory" placeholder="Category (Optional)" />
+      <button onclick="addTemplate()">➕ Add Template</button>
+    </section>
+
+    
+    <section class="template-controls">
+      <h3>Manage Templates</h3>
+      <select id="sortOption" onchange="loadTemplates()">
+        <option value="time">Sort by Time (Newest First)</option>
+        <option value="title">Sort by Title (A-Z)</option>
+      </select>
+      <button onclick="clearAllTemplates()">🗑️ Clear All</button>
+    </section>
+
+<section class="todo-list-container">
+  <h2>Saved Templates</h2>
+  <div id="todoList" class="template-list">
+    
+  </div>
+</section>
+
+
+  </main>
+
+  <script src="js/todolist.js"></script>
+  
+</body>
+</html>
