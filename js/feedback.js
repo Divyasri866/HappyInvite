@@ -1,4 +1,4 @@
-document.getElementById("feedbackForm").addEventListener("submit", function (e) {
+document.getElementById("feedbackForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const name = document.getElementById("name").value.trim();
@@ -12,10 +12,13 @@ document.getElementById("feedbackForm").addEventListener("submit", function (e) 
     return;
   }
 
-  
-  feedbackResponse.style.color = "green";
-  feedbackResponse.textContent = "Thanks for your feedback! 💖";
-
-
-  document.getElementById("feedbackForm").reset();
+  try {
+    const res = await API.submitFeedback(name, rating, comments);
+    feedbackResponse.style.color = "green";
+    feedbackResponse.textContent = res.message || "Thanks for your feedback! 💖";
+    document.getElementById("feedbackForm").reset();
+  } catch (err) {
+    feedbackResponse.style.color = "red";
+    feedbackResponse.textContent = err.message || "Failed to submit feedback. Please try again.";
+  }
 });

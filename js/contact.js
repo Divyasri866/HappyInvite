@@ -1,4 +1,4 @@
-document.getElementById("contactForm").addEventListener("submit", function (e) {
+document.getElementById("contactForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const name = document.getElementById("name").value.trim();
@@ -12,8 +12,13 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
     return;
   }
 
-  responseBox.style.color = "green";
-  responseBox.textContent = "Thank you! Your message has been sent.";
-
-  document.getElementById("contactForm").reset();
+  try {
+    const res = await API.submitContact(name, email, message);
+    responseBox.style.color = "green";
+    responseBox.textContent = res.message || "Thank you! Your message has been sent.";
+    document.getElementById("contactForm").reset();
+  } catch (err) {
+    responseBox.style.color = "red";
+    responseBox.textContent = err.message || "Failed to send message. Please try again.";
+  }
 });

@@ -1,4 +1,4 @@
-document.getElementById("loginForm").addEventListener("submit", function (e) {
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const email = document.getElementById("email").value.trim();
@@ -7,7 +7,6 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  
   status.textContent = "";
   status.className = "message";
 
@@ -23,18 +22,16 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     return;
   }
 
-  const user = JSON.parse(localStorage.getItem("happyInviteUser"));
+  try {
+    const res = await API.login(email, password);
+    status.textContent = "Login successful! Redirecting to home...";
+    status.classList.add("success");
 
-  if (!user || email !== user.email || password !== user.password) {
-    status.textContent = "Incorrect email or password.";
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1500);
+  } catch (err) {
+    status.textContent = err.message || "Incorrect email or password.";
     status.classList.add("error");
-    return;
   }
-
-  status.textContent = "Login successful! Redirecting to home...";
-  status.classList.add("success");
-
-  setTimeout(() => {
-    window.location.href = "index.html";
-  }, 2000);
 });

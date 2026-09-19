@@ -1,2 +1,5 @@
-assets/videos/ 
-node_modules/ 
+node_modules/
+.env
+assets/videos/
+
+server/.env

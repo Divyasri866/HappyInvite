@@ -16,11 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   filterButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-  const category = btn.getAttribute("data-category");
-  pexelsContainer.innerHTML = "";
-  page = 1;
-  loadPexelsImages(category);
-});
+      const category = btn.getAttribute("data-category");
+      if (typeof pexelsContainer !== 'undefined' && pexelsContainer) {
+        pexelsContainer.innerHTML = "";
+        page = 1;
+        loadPexelsImages(category);
+      }
+    });
   });
 
   cards.forEach(card => {
@@ -81,38 +83,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  popupPrevBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    currentImgIndex = (currentImgIndex - 1 + currentImages.length) % currentImages.length;
-    showPopupImage(currentImgIndex);
-  });
+  if (popupPrevBtn) {
+    popupPrevBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      currentImgIndex = (currentImgIndex - 1 + currentImages.length) % currentImages.length;
+      showPopupImage(currentImgIndex);
+    });
+  }
 
-  popupNextBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    currentImgIndex = (currentImgIndex + 1) % currentImages.length;
-    showPopupImage(currentImgIndex);
-  });
+  if (popupNextBtn) {
+    popupNextBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      currentImgIndex = (currentImgIndex + 1) % currentImages.length;
+      showPopupImage(currentImgIndex);
+    });
+  }
 
-  previewCloseBtn.addEventListener("click", closePopup);
-  overlay.addEventListener("click", closePopup);
+  if (previewCloseBtn) previewCloseBtn.addEventListener("click", closePopup);
+  if (overlay) overlay.addEventListener("click", closePopup);
   function closePopup() {
     popup.style.display = "none";
     overlay.style.display = "none";
   }
 
-  previewOpenBtn.addEventListener("click", () => {
-    if (currentImages.length && selectedLink) {
-      localStorage.setItem("selectedBgImage", currentImages[currentImgIndex]);
-      window.location.href = selectedLink;
-    }
-  });
+  if (previewOpenBtn) {
+    previewOpenBtn.addEventListener("click", () => {
+      if (currentImages.length && selectedLink) {
+        localStorage.setItem("selectedBgImage", currentImages[currentImgIndex]);
+        window.location.href = selectedLink;
+      }
+    });
+  }
 
   const saveButtons = document.querySelectorAll(".save-btn");
   saveButtons.forEach(button => {
-    button.addEventListener("click", (e) => {
+    button.addEventListener("click", async (e) => {
       e.stopPropagation();
       const title = button.getAttribute("data-title");
       const imgPath = button.getAttribute("data-img");
+      const token = typeof API !== 'undefined' ? API.getToken() : null;
+
+      if (token) {
+        try {
+          await API.addSavedTemplate(title, '', imgPath);
+          alert("✅ Template saved to To-Do List via API!");
+          return;
+        } catch (err) {
+          console.warn("API save failed, saving locally:", err.message);
+        }
+      }
 
       convertImgToBase64(imgPath, (base64Img) => {
         const newTemplate = {
@@ -151,7 +170,7 @@ let page = 1;
 let loading = false;
 
 function loadPexelsImages(query = "birthday") {
-  if (loading) return;
+  if (!pexelsContainer || loading) return;
   loading = true;
 
   fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=10&page=${page}`, {
@@ -161,56 +180,74 @@ function loadPexelsImages(query = "birthday") {
   })
   .then(res => res.json())
   .then(data => {
-    data.photos.forEach(photo => {
-      const card = document.createElement("div");
-      card.classList.add("template-card", query);
-      card.setAttribute("data-link", "bd-editor.html");
+    if (data && data.photos) {
+      data.photos.forEach(photo => {
+        const card = document.createElement("div");
+        card.classList.add("template-card", query);
+        card.setAttribute("data-link", "template/birthday-editor.html");
 
-      card.innerHTML = `
-  <img src="${photo.src.medium}" alt="${photo.photographer}">
-  <h3>${query.charAt(0).toUpperCase() + query.slice(1)}</h3>
-  <button class="save-btn" data-title="${query}" data-img="${photo.src.medium}">Save</button>
-`;
+        card.innerHTML = `
+          <img src="${photo.src.medium}" alt="${photo.photographer}">
+          <h3>${query.charAt(0).toUpperCase() + query.slice(1)}</h3>
+          <button class="save-btn" data-title="${query}" data-img="${photo.src.medium}">Save</button>
+        `;
 
-const saveBtn = card.querySelector(".save-btn");
-saveBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  const title = saveBtn.getAttribute("data-title");
-  const imgPath = saveBtn.getAttribute("data-img");
+        const saveBtn = card.querySelector(".save-btn");
+        saveBtn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const title = saveBtn.getAttribute("data-title");
+          const imgPath = saveBtn.getAttribute("data-img");
+          const token = typeof API !== 'undefined' ? API.getToken() : null;
 
-  convertImgToBase64(imgPath, (base64Img) => {
-    const newTemplate = {
-      title: title,
-      img: base64Img,
-      time: new Date().toISOString()
-    };
+          if (token) {
+            try {
+              await API.addSavedTemplate(title, query, imgPath);
+              alert("✅ Template saved to To-Do List via API!");
+              return;
+            } catch (err) {
+              console.warn("API save failed, saving locally:", err.message);
+            }
+          }
 
-    const templates = JSON.parse(localStorage.getItem("todoTemplates")) || [];
-    templates.push(newTemplate);
-    localStorage.setItem("todoTemplates", JSON.stringify(templates));
+          convertImgToBase64(imgPath, (base64Img) => {
+            const newTemplate = {
+              title: title,
+              img: base64Img,
+              time: new Date().toISOString()
+            };
 
-    alert("✅ Template saved to To-Do List!");
-  });
-});
+            const templates = JSON.parse(localStorage.getItem("todoTemplates")) || [];
+            templates.push(newTemplate);
+            localStorage.setItem("todoTemplates", JSON.stringify(templates));
 
+            alert("✅ Template saved to To-Do List!");
+          });
+        });
 
-      card.addEventListener("click", () => {
-        openPopup(photo.src.medium, query, "bd-editor.html");
+        card.addEventListener("click", () => {
+          if (typeof openPopup === 'function') {
+            openPopup(photo.src.medium, query, "template/birthday-editor.html");
+          }
+        });
+
+        pexelsContainer.appendChild(card);
       });
-
-      pexelsContainer.appendChild(card);
-    });
+    }
 
     page++;
+    loading = false;
+  })
+  .catch(err => {
     loading = false;
   });
 }
 
-window.addEventListener("scroll", () => {
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-    loadPexelsImages("birthday"); 
-  }
-});
+if (pexelsContainer) {
+  window.addEventListener("scroll", () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+      loadPexelsImages("birthday"); 
+    }
+  });
 
-loadPexelsImages("birthday");
-
+  loadPexelsImages("birthday");
+}

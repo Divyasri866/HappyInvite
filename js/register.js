@@ -1,4 +1,4 @@
-document.getElementById("registerForm").addEventListener("submit", function (e) {
+document.getElementById("registerForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const name = document.getElementById("name").value.trim();
@@ -25,19 +25,22 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     return;
   }
 
-  // Save to localStorage
-  const user = {
-    name,
-    email,
-    password
-  };
+  if (password.length < 6) {
+    status.textContent = "Password must be at least 6 characters long.";
+    status.classList.add("error");
+    return;
+  }
 
-  localStorage.setItem("happyInviteUser", JSON.stringify(user));
+  try {
+    const res = await API.register(name, email, password);
+    status.textContent = "Registration successful! Redirecting to home...";
+    status.classList.add("success");
 
-  status.textContent = "Registration successful! Redirecting to login...";
-  status.classList.add("success");
-
-  setTimeout(() => {
-    window.location.href = "login.html";
-  }, 2000);
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1500);
+  } catch (err) {
+    status.textContent = err.message || "Registration failed. Please try again.";
+    status.classList.add("error");
+  }
 });
