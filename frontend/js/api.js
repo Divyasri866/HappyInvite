@@ -5,7 +5,17 @@ const getApiBaseUrl = () => {
   if (typeof window !== 'undefined' && localStorage.getItem('API_BASE_URL')) {
     return localStorage.getItem('API_BASE_URL').replace(/\/$/, '');
   }
-  return ''; // Default relative path for single-domain deployment or local dev
+
+  // If running locally on localhost or 127.0.0.1, use relative path for local dev server
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return '';
+    }
+  }
+
+  // Default production Express API server hosted on Render
+  return 'https://happyinvite.onrender.com';
 };
 
 const API = {
