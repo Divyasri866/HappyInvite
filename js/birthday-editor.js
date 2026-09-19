@@ -10,86 +10,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const draggableTexts = document.querySelectorAll(".draggable-text");
 
-  nameInput.addEventListener("input", () => {
-    previewName.textContent = nameInput.value || "Dear Friend";
-  });
-  dateInput.addEventListener("input", () => {
-    previewDate.textContent = dateInput.value || "On Your Special Day";
-  });
-  messageInput.addEventListener("input", () => {
-    previewMessage.textContent = messageInput.value || "Wishing you the happiest birthday ever! 🎂";
-  });
-
- 
-  colorPicker.addEventListener("input", () => {
-    draggableTexts.forEach(el => {
-      el.style.color = colorPicker.value;
+  if (nameInput && previewName) {
+    nameInput.addEventListener("input", () => {
+      previewName.textContent = nameInput.value || "Dear Friend";
     });
-  });
+  }
+  if (dateInput && previewDate) {
+    dateInput.addEventListener("input", () => {
+      previewDate.textContent = dateInput.value || "On Your Special Day";
+    });
+  }
+  if (messageInput && previewMessage) {
+    messageInput.addEventListener("input", () => {
+      previewMessage.textContent = messageInput.value || "Wishing you the happiest birthday ever! 🎂";
+    });
+  }
 
-    const bgImage = document.getElementById("bgImage");
+  if (colorPicker) {
+    colorPicker.addEventListener("input", () => {
+      draggableTexts.forEach(el => {
+        el.style.color = colorPicker.value;
+      });
+    });
+  }
+
+  const bgImage = document.getElementById("bgImage");
   const templateSelect = document.getElementById("templateSelect");
 
-  templateSelect.addEventListener("change", () => {
-    const selected = templateSelect.value;
+  if (templateSelect && bgImage) {
+    templateSelect.addEventListener("change", () => {
+      const selected = templateSelect.value;
 
-    if (selected === "1") {
-      bgImage.src = "../assets/images/birthday1.jpg";
+      if (selected === "1") {
+        bgImage.src = "../assets/images/birthday1.png";
 
-      previewName.style.fontFamily = "Georgia, serif";
-      previewName.style.color = "#b30086";
-      previewName.style.top = "60px";
-      previewName.style.left = "50px";
+        previewName.style.fontFamily = "Georgia, serif";
+        previewName.style.color = "#b30086";
+        previewName.style.top = "60px";
+        previewName.style.left = "50px";
 
-      previewDate.style.fontFamily = "Georgia, serif";
-      previewDate.style.color = "#ff3399";
-      previewDate.style.top = "120px";
-      previewDate.style.left = "50px";
+        previewDate.style.fontFamily = "Georgia, serif";
+        previewDate.style.color = "#ff3399";
+        previewDate.style.top = "120px";
+        previewDate.style.left = "50px";
 
-      previewMessage.style.fontFamily = "Georgia, serif";
-      previewMessage.style.color = "#cc0066";
-      previewMessage.style.top = "200px";
-      previewMessage.style.left = "50px";
+        previewMessage.style.fontFamily = "Georgia, serif";
+        previewMessage.style.color = "#cc0066";
+        previewMessage.style.top = "200px";
+        previewMessage.style.left = "50px";
 
-    } else if (selected === "2") {
-      bgImage.src = "../assets/images/birthday1.jpg";
+      } else if (selected === "2") {
+        bgImage.src = "../assets/images/birthday2.png";
 
-      previewName.style.fontFamily = "'Comic Sans MS', cursive";
-      previewName.style.color = "#ff6600";
-      previewName.style.top = "80px";
-      previewName.style.left = "40px";
+        previewName.style.fontFamily = "'Comic Sans MS', cursive";
+        previewName.style.color = "#ff6600";
+        previewName.style.top = "80px";
+        previewName.style.left = "40px";
 
-      previewDate.style.fontFamily = "'Comic Sans MS', cursive";
-      previewDate.style.color = "#ff9900";
-      previewDate.style.top = "140px";
-      previewDate.style.left = "40px";
+        previewDate.style.fontFamily = "'Comic Sans MS', cursive";
+        previewDate.style.color = "#ff9900";
+        previewDate.style.top = "140px";
+        previewDate.style.left = "40px";
 
-      previewMessage.style.fontFamily = "'Comic Sans MS', cursive";
-      previewMessage.style.color = "#ff3300";
-      previewMessage.style.top = "220px";
-      previewMessage.style.left = "40px";
+        previewMessage.style.fontFamily = "'Comic Sans MS', cursive";
+        previewMessage.style.color = "#ff3300";
+        previewMessage.style.top = "220px";
+        previewMessage.style.left = "40px";
 
-    } else if (selected === "3") {
-      bgImage.src = "../assets/images/birthday1.jpg";
+      } else if (selected === "3") {
+        bgImage.src = "../assets/images/birthday3.png";
 
-      previewName.style.fontFamily = "'Brush Script MT', cursive";
-      previewName.style.color = "#339966";
-      previewName.style.top = "70px";
-      previewName.style.left = "60px";
+        previewName.style.fontFamily = "'Brush Script MT', cursive";
+        previewName.style.color = "#339966";
+        previewName.style.top = "70px";
+        previewName.style.left = "60px";
 
-      previewDate.style.fontFamily = "'Brush Script MT', cursive";
-      previewDate.style.color = "#2e8b57";
-      previewDate.style.top = "130px";
-      previewDate.style.left = "60px";
+        previewDate.style.fontFamily = "'Brush Script MT', cursive";
+        previewDate.style.color = "#2e8b57";
+        previewDate.style.top = "130px";
+        previewDate.style.left = "60px";
 
-      previewMessage.style.fontFamily = "'Brush Script MT', cursive";
-      previewMessage.style.color = "#006644";
-      previewMessage.style.top = "210px";
-      previewMessage.style.left = "60px";
-    }
-  });
-
-
+        previewMessage.style.fontFamily = "'Brush Script MT', cursive";
+        previewMessage.style.color = "#006644";
+        previewMessage.style.top = "210px";
+        previewMessage.style.left = "60px";
+      }
+    });
+  }
 
   draggableTexts.forEach(el => {
     el.addEventListener("pointerdown", (e) => {
@@ -122,23 +129,20 @@ document.addEventListener("DOMContentLoaded", () => {
     el.addEventListener("dragstart", () => false); 
   });
 
- 
- document.getElementById("downloadBtn")?.addEventListener("click", () => {
-  const card = document.getElementById("cardPreview");
-  html2canvas(card).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "birthday-card.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+  document.getElementById("downloadBtn")?.addEventListener("click", () => {
+    const card = document.getElementById("cardPreview");
+    if (typeof html2canvas !== 'undefined' && card) {
+      html2canvas(card).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "birthday-card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
   });
-});
 
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
   const selectedImg = localStorage.getItem("selectedBgImage");
-  const card = document.getElementById("cardPreview"); // make sure your card has this ID
+  const card = document.getElementById("cardPreview");
   if (selectedImg && card) {
     card.style.backgroundImage = `url(${selectedImg})`;
     card.style.backgroundSize = "cover";
@@ -148,5 +152,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function goBack() {
-    window.location.href = "../explore.html"; // update path if needed
-  }
+  window.location.href = "../explore.html";
+}
