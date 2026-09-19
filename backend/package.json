@@ -1,16 +1,13 @@
 {
-  "name": "happyinvite",
+  "name": "happyinvite-backend",
   "version": "1.0.0",
-  "description": "Full-stack invitation and greeting maker application",
-  "main": "backend/server.js",
+  "description": "HappyInvite Express API Backend",
+  "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "node backend/server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
-  "keywords": [],
-  "author": "Divyasri",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",

@@ -59,7 +59,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Serve static frontend files when running standalone
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 const PORT = process.env.PORT || 5000;
 
