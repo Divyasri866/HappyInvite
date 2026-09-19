@@ -1,3 +1,13 @@
+const getApiBaseUrl = () => {
+  if (typeof window !== 'undefined' && window.API_BASE_URL) {
+    return window.API_BASE_URL.replace(/\/$/, '');
+  }
+  if (typeof window !== 'undefined' && localStorage.getItem('API_BASE_URL')) {
+    return localStorage.getItem('API_BASE_URL').replace(/\/$/, '');
+  }
+  return ''; // Default relative path for single-domain deployment or local dev
+};
+
 const API = {
   getToken() {
     return localStorage.getItem('happyInviteToken');
@@ -40,8 +50,10 @@ const API = {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
+    const fullUrl = `${getApiBaseUrl()}${endpoint}`;
+
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(fullUrl, {
         ...options,
         headers,
       });

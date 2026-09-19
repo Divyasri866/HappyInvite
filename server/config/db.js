@@ -1,24 +1,19 @@
-const mongoose = require('mongoose');
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
-let isConnected = false;
+const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    mongoose.set('bufferCommands', false);
     const conn = await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 2500,
+      serverSelectionTimeoutMS: 10000,
     });
     console.log(`🍃 MongoDB Connected: ${conn.connection.host}`);
-    isConnected = true;
     return conn;
   } catch (error) {
-    console.warn(`⚠️ MongoDB Connection Notice: Could not connect to ${process.env.MONGO_URI} (${error.message}).`);
-    console.log('💡 Running with In-Memory Data Store. Set valid MONGO_URI in server/.env to use external MongoDB.');
-    isConnected = false;
-    return null;
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    throw error;
   }
 };
 
-const getIsConnected = () => isConnected;
-
-module.exports = { connectDB, getIsConnected };
+module.exports = connectDB;

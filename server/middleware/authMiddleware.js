@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { getIsConnected } = require('../config/db');
-const { memoryUsers } = require('../controllers/authController');
 
 const protect = async (req, res, next) => {
   let token;
@@ -22,24 +20,13 @@ const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select('-password');
 
-    if (getIsConnected()) {
-      req.user = await User.findById(decoded.id).select('-password');
-      if (!req.user) {
-        return res.status(401).json({
-          success: false,
-          message: 'User no longer exists.',
-        });
-      }
-    } else {
-      const user = memoryUsers.find((u) => u.id === decoded.id || u._id === decoded.id);
-      if (!user) {
-        return res.status(401).json({
-          success: false,
-          message: 'User no longer exists.',
-        });
-      }
-      req.user = { id: user.id, _id: user.id, name: user.name, email: user.email };
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'User no longer exists in database.',
+      });
     }
 
     next();
